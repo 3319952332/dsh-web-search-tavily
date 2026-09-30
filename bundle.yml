@@ -1,0 +1,18 @@
+# dsh-web-search-tavily bundle patch.
+# Declares this package's contribution to the loader tree. Applied as one insert
+# over the profile root, before the user's `cordis.patch.yml` overrides land.
+#
+# Adding `dsh.bundle.patch` to package.json makes this package discoverable by the
+# plugin market UI; declaring `dsh.profile.bundles` in the user's package.json then
+# enables it. The companion piece (`- id: web - config.searchProvider: tavily`)
+# belongs in the user patch — it is profile-specific configuration, not bundle shape.
+# `name:` must resolve under <profile>/node_modules via the loader's
+# `internal.import(name, baseUrl)` call (vendor/loader/src/config/tree.ts:155).
+# This package is published locally as the unscoped `dsh-web-search-tavily`
+# (link:E:/.../web-search-tavily) — `@deepseek-ai/dsh-web-search-tavily` does
+# not exist on disk and Node returns MODULE_NOT_FOUND before `apply()` runs.
+# A relative path would also work (anchorInsertedPluginNames rewrites it to a
+# file URL), but the unscoped name lets package.json `main` drive the entry.
+- insert:
+  - id: web-search-tavily
+    name: "dsh-web-search-tavily"

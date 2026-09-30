@@ -1,0 +1,34 @@
+{
+  "name": "dsh-web-search-tavily",
+  "version": "1.1.0",
+  "description": "DSH web search provider backed by Tavily (https://tavily.com): registers ctx.web search providers under the id `tavily` (alias `dsh-web-search-tavily`) and calls POST {base}/search with a Bearer API key, mapping results[] to normalized, citeable sources plus Tavily's optional LLM answer as content. Includes an in-flight query coalescer and a client-side throttle (concurrency cap, minimum request spacing, 429 cool-down with bounded backoff) sized for Tavily's rate-plan limits.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "bundle.yml"
+  ],
+  "scripts": {
+    "test:mock": "node test/mock.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./bundle.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "~4.0.4",
+    "@deepseek-ai/dsh-credentials": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-launch-environment": "0.2.0-rc.2",
+    "@deepseek-ai/dsh-web": "0.2.0-rc.2",
+    "@deepseek-ai/schemastery": "~3.18.4"
+  }
+}
